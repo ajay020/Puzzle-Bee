@@ -4,7 +4,7 @@ import 'package:puzzle_bee/app.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:puzzle_bee/data/repositories/mock_puzzle_repository.dart';
 
-import 'presentation/blocs/puzzle_block.dart';
+import 'presentation/blocs/puzzle/puzzle_block.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

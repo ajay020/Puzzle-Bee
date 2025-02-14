@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:puzzle_bee/presentation/screens/multiple_choice_puzzle_screen.dart';
 import '../../core/enums/puzzle_category.dart';
 import '../../core/enums/puzzle_type.dart';
-import '../blocs/puzzle_block.dart';
-import '../blocs/puzzle_event.dart';
-import '../blocs/puzzle_state.dart';
+import '../blocs/puzzle/puzzle_block.dart';
+import '../blocs/puzzle/puzzle_event.dart';
+import '../blocs/puzzle/puzzle_state.dart';
 
 class PuzzleScreen extends StatefulWidget {
   final PuzzleCategory category;

@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import '../../data/models/puzzle/puzzle.dart';
+import '../../../data/models/puzzle/puzzle.dart';
 
 abstract class PuzzleState extends Equatable {
   @override

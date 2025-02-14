@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../domain/repositories/puzzle_repository.dart';
+import '../../../domain/repositories/puzzle_repository.dart';
 import 'puzzle_event.dart';
 import 'puzzle_state.dart';
 

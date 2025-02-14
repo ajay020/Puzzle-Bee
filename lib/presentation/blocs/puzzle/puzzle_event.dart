@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
-import '../../core/enums/puzzle_category.dart';
-import '../../core/enums/puzzle_type.dart';
-import '../../data/models/puzzle/puzzle.dart';
+import '../../../core/enums/puzzle_category.dart';
+import '../../../core/enums/puzzle_type.dart';
+import '../../../data/models/puzzle/puzzle.dart';
 
 abstract class PuzzleEvent extends Equatable {
   @override
