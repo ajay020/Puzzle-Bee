@@ -102,6 +102,10 @@ class _MultipleChoicePuzzleScreenState
   @override
   Widget build(BuildContext context) {
     final puzzle = widget.puzzles[currentPuzzleIndex];
+    // Check if the content is of type MultipleChoiceContent
+    if (puzzle.content is! MultipleChoiceContent) {
+      return const Center(child: Text('Invalid puzzle type'));
+    }
     final content = puzzle.content as MultipleChoiceContent;
 
     return Scaffold(

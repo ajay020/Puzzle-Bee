@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:puzzle_bee/presentation/screens/multiple_choice_puzzle_screen.dart';
+import 'package:puzzle_bee/presentation/screens/match_pair_puzzle_screen.dart';
 import '../../core/enums/puzzle_category.dart';
 import '../../core/enums/puzzle_type.dart';
+import '../../data/models/puzzle/puzzle.dart';
 import '../blocs/puzzle/puzzle_block.dart';
 import '../blocs/puzzle/puzzle_event.dart';
 import '../blocs/puzzle/puzzle_state.dart';
+import '../screens/multiple_choice_puzzle_screen.dart';
 
 class PuzzleScreen extends StatefulWidget {
   final PuzzleCategory category;
@@ -44,19 +46,32 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
         } else if (state is PuzzleError) {
           return Center(child: Text(state.message));
         } else if (state is PuzzleLoaded) {
-          if (widget.type == PuzzleType.multipleChoice) {
-            return MultipleChoicePuzzleScreen(puzzles: state.puzzles);
-          } else if (widget.type == PuzzleType.matchingPairs) {
-            return Text("Match the pairs");
-          } else if (widget.type == PuzzleType.trueFalse) {
-            return Text("True false ");
-          } else {
-            return Text("Unkonwn type");
-          }
+          return _buildPuzzleScreenByType(state.puzzles);
         } else {
           return const Center(child: Text('Unknown state'));
         }
       },
     );
+  }
+
+  Widget _buildPuzzleScreenByType(List<Puzzle> puzzles) {
+    // Filter puzzles to ensure they match the current type
+    final filteredPuzzles =
+        puzzles.where((puzzle) => puzzle.type == widget.type).toList();
+
+    if (filteredPuzzles.isEmpty) {
+      return const Center(child: Text('No puzzles found for this type'));
+    }
+
+    switch (widget.type) {
+      case PuzzleType.multipleChoice:
+        return MultipleChoicePuzzleScreen(puzzles: puzzles);
+      case PuzzleType.matchingPairs:
+        return MatchingPairsPuzzleScreen(puzzles: puzzles);
+      case PuzzleType.trueFalse:
+        return const Text("True false");
+      default:
+        return const Text("Unknown type");
+    }
   }
 }

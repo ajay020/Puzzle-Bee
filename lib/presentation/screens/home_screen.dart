@@ -3,7 +3,7 @@ import 'package:puzzle_bee/core/enums/puzzle_category.dart';
 import 'package:puzzle_bee/core/puzzle_thumbails.dart';
 import 'package:puzzle_bee/data/models/puzzle_thumbnail.dart';
 
-import 'puzzle_screen.dart';
+import '../widgets/puzzle_screen_controller.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

@@ -24,9 +24,9 @@ List<PuzzleThumbnail> puzzleThumbnails = [
     icon: Icons.calculate,
   ),
   PuzzleThumbnail(
-    title: "Fill in blank",
+    title: "Match Pair",
     category: PuzzleCategory.math,
-    type: PuzzleType.fillInTheBlank,
-    icon: Icons.edit,
+    type: PuzzleType.matchingPairs,
+    icon: Icons.bolt_sharp,
   ),
 ];
