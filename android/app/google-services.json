@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "922628889320",
+    "project_id": "puzzlebee-90b9c",
+    "storage_bucket": "puzzlebee-90b9c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:922628889320:android:6fc6ecf19de6029eae075d",
+        "android_client_info": {
+          "package_name": "com.example.puzzle_bee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "922628889320-742atntdbbvevqb4ud5od9c8b659qdmp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMtydEhC22m0fRHIg5PsBkh8AJ6hKRxyM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "922628889320-742atntdbbvevqb4ud5od9c8b659qdmp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
