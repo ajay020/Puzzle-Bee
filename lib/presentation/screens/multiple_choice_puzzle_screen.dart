@@ -1,10 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:puzzle_bee/presentation/screens/result_screen.dart';
 
 import '../../data/models/puzzle/multiple_choice_content.dart';
 import '../../data/models/puzzle/puzzle.dart';
+import '../../domain/entites/user_entity.dart';
+import '../blocs/leaderboard/leaderboard_bloc.dart';
+import '../blocs/leaderboard/leaderboard_event.dart';
 
 class MultipleChoicePuzzleScreen extends StatefulWidget {
   final List<Puzzle> puzzles;
@@ -60,17 +64,37 @@ class _MultipleChoicePuzzleScreenState
         _timeLeft = 10; // Reset timer for the next question
       });
     } else {
+      int correctAnsers = _calculateCorrectAnswers();
+      final multipleChoiceScore =
+          calculateMultipleChoiceScore(correctAnsers, _timeLeft);
+      final updatedUser = User(
+        userId: 'user123', // Replace with the actual user ID
+        username: 'Current User', // Replace with the actual user name
+        totalScore: multipleChoiceScore,
+        multipleChoiceScore: multipleChoiceScore, // Update based on puzzle type
+        matchingPairsScore: 0, // Update based on puzzle type
+      );
+
+      // Dispatch the UpdateScore event to the LeaderboardBloc
+      context.read<LeaderboardBloc>().add(UpdateScore(updatedUser));
+
       // Navigate to the result screen
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) => ResultScreen(
             totalQuestions: widget.puzzles.length,
-            correctAnswers: _calculateCorrectAnswers(),
+            correctAnswers: correctAnsers,
           ),
         ),
       );
     }
+  }
+
+  int calculateMultipleChoiceScore(int correctAnswers, int timeLeft) {
+    int baseScore = correctAnswers * 10; // 10 points per correct answer
+    int timeBonus = timeLeft; // 1 point per second remaining
+    return baseScore + timeBonus;
   }
 
   int _calculateCorrectAnswers() {

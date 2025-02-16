@@ -1,9 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:puzzle_bee/data/models/puzzle/match_pairs_content.dart';
 import 'package:puzzle_bee/data/models/puzzle/pair_item.dart';
+import 'package:puzzle_bee/domain/entites/user_entity.dart';
 import '../../data/models/puzzle/puzzle.dart';
+import '../blocs/leaderboard/leaderboard_bloc.dart';
+import '../blocs/leaderboard/leaderboard_event.dart';
 
 class MatchingPairsPuzzleScreen extends StatefulWidget {
   final List<Puzzle> puzzles;
@@ -82,6 +86,12 @@ class _MatchingPairsPuzzleScreenState extends State<MatchingPairsPuzzleScreen> {
     }
   }
 
+  int calculateMatchingPairsScore(int correctPairs, int timeLeft) {
+    int baseScore = correctPairs * 5; // 5 points per correct pair
+    int timeBonus = timeLeft; // 1 point per second remaining
+    return baseScore + timeBonus;
+  }
+
   void startTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
@@ -157,11 +167,26 @@ class _MatchingPairsPuzzleScreenState extends State<MatchingPairsPuzzleScreen> {
   }
 
   void _showCompletionDialog() {
+    // Calculate score
+    final score = calculateMatchingPairsScore(pairs.length, timeLeft);
+
+    // Create a User object with the updated score
+    final updatedUser = User(
+      userId: 'user123', // Replace with the actual user ID
+      username: 'Current User', // Replace with the actual user name
+      totalScore: score,
+      multipleChoiceScore: 0, // Update based on puzzle type
+      matchingPairsScore: score, // Update based on puzzle type
+    );
+
+    // Dispatch the UpdateScore event to the LeaderboardBloc
+    context.read<LeaderboardBloc>().add(UpdateScore(updatedUser));
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Congratulations!'),
-        content: const Text('You have matched all pairs correctly!'),
+        content: Text("You scored $score points!"),
         actions: [
           TextButton(
             onPressed: () {
