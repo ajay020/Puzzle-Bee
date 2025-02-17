@@ -1,6 +1,10 @@
-import '../entites/user_entity.dart';
+import 'package:puzzle_bee/data/models/user/user_model.dart';
 
 abstract class UserRepository {
-  Future<List<User>> getLeaderboard();
-  Future<void> updateUserScore(User user);
+  Future<List<UserModel>> getLeaderboard();
+  Future<UserModel?> fetchUserProfile(String userId);
+  Future<void> updateUserScore({
+    required String userId,
+    required Map<String, dynamic> updates,
+  });
 }

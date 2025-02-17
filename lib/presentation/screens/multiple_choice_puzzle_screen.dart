@@ -1,12 +1,15 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:puzzle_bee/presentation/screens/result_screen.dart';
 
+import '../../core/firestore_fields.dart';
 import '../../data/models/puzzle/multiple_choice_content.dart';
 import '../../data/models/puzzle/puzzle.dart';
-import '../../domain/entites/user_entity.dart';
+import '../blocs/auth/auth_bloc.dart';
+import '../blocs/auth/auth_state.dart';
 import '../blocs/leaderboard/leaderboard_bloc.dart';
 import '../blocs/leaderboard/leaderboard_event.dart';
 
@@ -65,18 +68,21 @@ class _MultipleChoicePuzzleScreenState
       });
     } else {
       int correctAnsers = _calculateCorrectAnswers();
-      final multipleChoiceScore =
-          calculateMultipleChoiceScore(correctAnsers, _timeLeft);
-      final updatedUser = User(
-        userId: 'user123', // Replace with the actual user ID
-        username: 'Current User', // Replace with the actual user name
-        totalScore: multipleChoiceScore,
-        multipleChoiceScore: multipleChoiceScore, // Update based on puzzle type
-        matchingPairsScore: 0, // Update based on puzzle type
-      );
+      final score = calculateMultipleChoiceScore(correctAnsers, _timeLeft);
+
+      // Get the current user from AuthBloc
+      final user = (context.read<AuthBloc>().state as Authenticated).userData;
+
+      final updates = {
+        FirestoreFields.totalScore: FieldValue.increment(score),
+        FirestoreFields.multipleChoiceScore: FieldValue.increment(score),
+      };
 
       // Dispatch the UpdateScore event to the LeaderboardBloc
-      context.read<LeaderboardBloc>().add(UpdateScore(updatedUser));
+      context.read<LeaderboardBloc>().add(UpdateScore(
+            userId: user.userId,
+            updates: updates,
+          ));
 
       // Navigate to the result screen
       Navigator.pushReplacement(

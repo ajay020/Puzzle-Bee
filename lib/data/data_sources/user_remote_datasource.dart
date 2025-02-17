@@ -33,4 +33,17 @@ class UserRemoteDataSource {
       throw Exception('Failed to update user score');
     }
   }
+
+  // Fetch the current user's profile data
+  Future<UserModel?> fetchUserProfile(String userId) async {
+    try {
+      final userDoc = await _firestore.collection('users').doc(userId).get();
+      if (!userDoc.exists) return null;
+
+      return UserModel.fromJson(userDoc.data()!);
+    } catch (e) {
+      print('Error fetching user profile: $e');
+      return null;
+    }
+  }
 }

@@ -1,44 +1,53 @@
-import '../../domain/entites/user_entity.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../../domain/repositories/user_repository.dart';
-import '../data_sources/user_remote_datasource.dart';
 import '../models/user/user_model.dart';
 
 class UserRepositoryImpl implements UserRepository {
-  final UserRemoteDataSource _remoteDataSource;
+  final FirebaseFirestore firestore;
 
-  UserRepositoryImpl(this._remoteDataSource);
+  UserRepositoryImpl({required this.firestore});
 
   @override
-  Future<List<User>> getLeaderboard() async {
+  Future<List<UserModel>> getLeaderboard() async {
     try {
-      final userModels = await _remoteDataSource.getLeaderboard();
-      return userModels
-          .map((model) => User(
-                userId: model.userId,
-                username: model.username,
-                totalScore: model.totalScore,
-                multipleChoiceScore: model.multipleChoiceScore,
-                matchingPairsScore: model.matchingPairsScore,
-              ))
+      final snapshot = await firestore
+          .collection('users')
+          .orderBy('totalScore', descending: true)
+          .limit(10)
+          .get();
+
+      return snapshot.docs
+          .map((doc) => UserModel.fromJson(doc.data()))
           .toList();
     } catch (e) {
-      throw Exception('Failed to get leaderboard');
+      throw Exception('Failed to fetch leaderboard data');
     }
   }
 
   @override
-  Future<void> updateUserScore(User user) async {
+  Future<void> updateUserScore({
+    required String userId,
+    required Map<String, dynamic> updates,
+  }) async {
     try {
-      final model = UserModel(
-        userId: user.userId,
-        username: user.username,
-        totalScore: user.totalScore,
-        multipleChoiceScore: user.multipleChoiceScore,
-        matchingPairsScore: user.matchingPairsScore,
-      );
-      await _remoteDataSource.updateUserScore(model);
+      await firestore.collection('users').doc(userId).update(updates);
     } catch (e) {
-      throw Exception('Failed to update user score');
+      throw Exception('Failed to update user score: $e');
+    }
+  }
+
+  // Fetch the current user's profile data
+  @override
+  Future<UserModel?> fetchUserProfile(String userId) async {
+    try {
+      final userDoc = await firestore.collection('users').doc(userId).get();
+      if (!userDoc.exists) return null;
+
+      return UserModel.fromJson(userDoc.data()!);
+    } catch (e) {
+      print('Error fetching user profile: $e');
+      return null;
     }
   }
 }

@@ -31,7 +31,8 @@ class LeaderboardBloc extends Bloc<LeaderboardEvent, LeaderboardState> {
     Emitter<LeaderboardState> emit,
   ) async {
     try {
-      await userRepository.updateUserScore(event.user);
+      await userRepository.updateUserScore(
+          userId: event.userId, updates: event.updates);
       add(LoadLeaderboard()); // Reload leaderboard after updating score
     } catch (e) {
       emit(LeaderboardError('Failed to update score'));

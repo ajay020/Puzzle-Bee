@@ -1,12 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:puzzle_bee/app.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:puzzle_bee/data/repositories/mock_puzzle_repository.dart';
-import 'package:puzzle_bee/data/repositories/mock_user_repository.dart';
+import 'package:puzzle_bee/data/repositories/user_repository_impl.dart';
+import 'package:puzzle_bee/presentation/blocs/auth/auth_bloc.dart';
+import 'package:puzzle_bee/presentation/blocs/auth/auth_event.dart';
 import 'package:puzzle_bee/presentation/blocs/leaderboard/leaderboard_bloc.dart';
 import 'package:puzzle_bee/presentation/blocs/leaderboard/leaderboard_event.dart';
 
+import 'data/repositories/auth_repository.dart';
+import 'domain/repositories/user_repository.dart';
 import 'presentation/blocs/puzzle/puzzle_block.dart';
 
 void main() async {
@@ -14,20 +19,34 @@ void main() async {
   await Firebase.initializeApp();
 
   final puzzleRepository = MockPuzzleRepository();
-  final userRepository = MockUserRepository();
+  final userRepository = UserRepositoryImpl(
+    firestore: FirebaseFirestore.instance,
+  );
+  final authRepository = AuthRepository();
 
   runApp(
-    MultiBlocProvider(
+    MultiRepositoryProvider(
       providers: [
-        BlocProvider(
-          create: (context) => PuzzleBloc(puzzleRepository: puzzleRepository),
-        ),
-        BlocProvider(
-          create: (context) => LeaderboardBloc(userRepository: userRepository)
-            ..add(LoadLeaderboard()),
-        )
+        RepositoryProvider<UserRepository>.value(value: userRepository),
       ],
-      child: const MyApp(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => AuthBloc(
+              authRepository: authRepository,
+              userRepository: userRepository,
+            )..add(AppStarted()),
+          ),
+          BlocProvider(
+            create: (context) => PuzzleBloc(puzzleRepository: puzzleRepository),
+          ),
+          BlocProvider(
+            create: (context) => LeaderboardBloc(userRepository: userRepository)
+              ..add(LoadLeaderboard()),
+          ),
+        ],
+        child: const MyApp(),
+      ),
     ),
   );
 }

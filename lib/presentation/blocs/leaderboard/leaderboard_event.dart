@@ -1,11 +1,13 @@
-import '../../../domain/entites/user_entity.dart';
-
 abstract class LeaderboardEvent {}
 
 class LoadLeaderboard extends LeaderboardEvent {}
 
 class UpdateScore extends LeaderboardEvent {
-  final User user;
+  final String userId;
+  final Map<String, dynamic> updates;
 
-  UpdateScore(this.user);
+  UpdateScore({
+    required this.userId,
+    required this.updates,
+  });
 }

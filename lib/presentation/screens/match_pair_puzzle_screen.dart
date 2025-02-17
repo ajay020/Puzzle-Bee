@@ -1,11 +1,14 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:puzzle_bee/data/models/puzzle/match_pairs_content.dart';
 import 'package:puzzle_bee/data/models/puzzle/pair_item.dart';
-import 'package:puzzle_bee/domain/entites/user_entity.dart';
+import '../../core/firestore_fields.dart';
 import '../../data/models/puzzle/puzzle.dart';
+import '../blocs/auth/auth_bloc.dart';
+import '../blocs/auth/auth_state.dart';
 import '../blocs/leaderboard/leaderboard_bloc.dart';
 import '../blocs/leaderboard/leaderboard_event.dart';
 
@@ -170,17 +173,19 @@ class _MatchingPairsPuzzleScreenState extends State<MatchingPairsPuzzleScreen> {
     // Calculate score
     final score = calculateMatchingPairsScore(pairs.length, timeLeft);
 
-    // Create a User object with the updated score
-    final updatedUser = User(
-      userId: 'user123', // Replace with the actual user ID
-      username: 'Current User', // Replace with the actual user name
-      totalScore: score,
-      multipleChoiceScore: 0, // Update based on puzzle type
-      matchingPairsScore: score, // Update based on puzzle type
-    );
+    // Get the current user from AuthBloc
+    final user = (context.read<AuthBloc>().state as Authenticated).userData;
+
+    // Prepare the updates
+    final updates = {
+      FirestoreFields.totalScore: FieldValue.increment(score),
+      FirestoreFields.matchingPairsScore: FieldValue.increment(score),
+    };
 
     // Dispatch the UpdateScore event to the LeaderboardBloc
-    context.read<LeaderboardBloc>().add(UpdateScore(updatedUser));
+    context
+        .read<LeaderboardBloc>()
+        .add(UpdateScore(userId: user.userId, updates: updates));
 
     showDialog(
       context: context,
