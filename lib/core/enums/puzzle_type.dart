@@ -2,8 +2,7 @@ enum PuzzleType {
   multipleChoice,
   matchingPairs,
   fillInTheBlank,
-  trueFalse
-  // Add more puzzle types in the future!
+  trueFalse,
 }
 
 String puzzleTypeToString(PuzzleType type) {

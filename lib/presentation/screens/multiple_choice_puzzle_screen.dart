@@ -12,6 +12,7 @@ import '../blocs/auth/auth_bloc.dart';
 import '../blocs/auth/auth_state.dart';
 import '../blocs/leaderboard/leaderboard_bloc.dart';
 import '../blocs/leaderboard/leaderboard_event.dart';
+import '../widgets/common/progressbar.dart';
 
 class MultipleChoicePuzzleScreen extends StatefulWidget {
   final List<Puzzle> puzzles;
@@ -30,7 +31,8 @@ class _MultipleChoicePuzzleScreenState
   int? selectedOptionIndex;
   bool isAnswerSubmitted = false;
   Timer? _timer;
-  int _timeLeft = 10; // 30 seconds for each question
+  double _timeLeft = 20; // Example: 20 seconds timer
+  final double totalTime = 20;
 
   @override
   void initState() {
@@ -47,10 +49,10 @@ class _MultipleChoicePuzzleScreenState
   }
 
   void _startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
       setState(() {
         if (_timeLeft > 0) {
-          _timeLeft--;
+          _timeLeft -= .1;
         } else {
           _moveToNextPuzzle();
         }
@@ -68,7 +70,8 @@ class _MultipleChoicePuzzleScreenState
       });
     } else {
       int correctAnsers = _calculateCorrectAnswers();
-      final score = calculateMultipleChoiceScore(correctAnsers, _timeLeft);
+      final score =
+          calculateMultipleChoiceScore(correctAnsers, _timeLeft.toInt());
 
       // Get the current user from AuthBloc
       final user = (context.read<AuthBloc>().state as Authenticated).userData;
@@ -148,11 +151,12 @@ class _MultipleChoicePuzzleScreenState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            LinearProgressIndicator(
-              minHeight: 12.0,
-              value: _timeLeft / 10,
-              backgroundColor: Colors.grey[300],
-              valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
+            ProgressBar(
+              currentTime: _timeLeft,
+              totalTime: totalTime,
+              height: 12.0,
+              backgroundColor: Colors.grey[300]!,
+              progressColor: Colors.green,
             ),
             const SizedBox(height: 20),
             Padding(

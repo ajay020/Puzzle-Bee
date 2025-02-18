@@ -25,5 +25,8 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/puzzles.json
+    - assets/eng_mc.json
+    - assets/eng_mp.json
+    - assets/math_mc.json
+    - assets/math_mp.json
 

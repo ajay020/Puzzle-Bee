@@ -1,0 +1,322 @@
+[
+    {
+        "id": "math_mp_1",
+        "title": "Basic Arithmetic",
+        "category": "math",
+        "subCategory": "arithmetic",
+        "type": "matchingPairs",
+        "content": {
+            "question": "Match the expression with its correct answer:",
+            "pairs": [
+                {
+                    "id": "1",
+                    "leftItem": "5 + 7",
+                    "rightItem": "12"
+                },
+                {
+                    "id": "2",
+                    "leftItem": "10 - 3",
+                    "rightItem": "7"
+                },
+                {
+                    "id": "3",
+                    "leftItem": "4 × 6",
+                    "rightItem": "24"
+                },
+                {
+                    "id": "4",
+                    "leftItem": "20 ÷ 5",
+                    "rightItem": "4"
+                }
+            ]
+        }
+    },
+    {
+        "id": "math_mp_2",
+        "title": "Fractions to Decimals",
+        "category": "math",
+        "subCategory": "fractions",
+        "type": "matchingPairs",
+        "content": {
+            "question": "Match the fraction with its decimal equivalent:",
+            "pairs": [
+                {
+                    "id": "1",
+                    "leftItem": "1/2",
+                    "rightItem": "0.5"
+                },
+                {
+                    "id": "2",
+                    "leftItem": "3/4",
+                    "rightItem": "0.75"
+                },
+                {
+                    "id": "3",
+                    "leftItem": "2/5",
+                    "rightItem": "0.4"
+                },
+                {
+                    "id": "4",
+                    "leftItem": "7/10",
+                    "rightItem": "0.7"
+                }
+            ]
+        }
+    },
+    {
+        "id": "math_mp_3",
+        "title": "Algebraic Expressions",
+        "category": "math",
+        "subCategory": "algebra",
+        "type": "matchingPairs",
+        "content": {
+            "question": "Match the expression with its simplified form:",
+            "pairs": [
+                {
+                    "id": "1",
+                    "leftItem": "2x + 3x",
+                    "rightItem": "5x"
+                },
+                {
+                    "id": "2",
+                    "leftItem": "4y - y",
+                    "rightItem": "3y"
+                },
+                {
+                    "id": "3",
+                    "leftItem": "3(x + 2)",
+                    "rightItem": "3x + 6"
+                },
+                {
+                    "id": "4",
+                    "leftItem": "5x - 2x + 4",
+                    "rightItem": "3x + 4"
+                }
+            ]
+        }
+    },
+    {
+        "id": "math_mp_4",
+        "title": "Geometry: Shapes and Properties",
+        "category": "math",
+        "subCategory": "geometry",
+        "type": "matchingPairs",
+        "content": {
+            "question": "Match the shape with its number of sides:",
+            "pairs": [
+                {
+                    "id": "1",
+                    "leftItem": "Triangle",
+                    "rightItem": "3"
+                },
+                {
+                    "id": "2",
+                    "leftItem": "Square",
+                    "rightItem": "4"
+                },
+                {
+                    "id": "3",
+                    "leftItem": "Pentagon",
+                    "rightItem": "5"
+                },
+                {
+                    "id": "4",
+                    "leftItem": "Hexagon",
+                    "rightItem": "6"
+                }
+            ]
+        }
+    },
+    {
+        "id": "math_mp_5",
+        "title": "Multiplication Tables",
+        "category": "math",
+        "subCategory": "multiplication",
+        "type": "matchingPairs",
+        "content": {
+            "question": "Match the multiplication problem with its product:",
+            "pairs": [
+                {
+                    "id": "1",
+                    "leftItem": "7 × 8",
+                    "rightItem": "56"
+                },
+                {
+                    "id": "2",
+                    "leftItem": "9 × 6",
+                    "rightItem": "54"
+                },
+                {
+                    "id": "3",
+                    "leftItem": "12 × 5",
+                    "rightItem": "60"
+                },
+                {
+                    "id": "4",
+                    "leftItem": "11 × 11",
+                    "rightItem": "121"
+                }
+            ]
+        }
+    },
+    {
+        "id": "math_mp_6",
+        "title": "Basic Arithmetic",
+        "category": "math",
+        "subCategory": "arithmetic",
+        "type": "matchingPairs",
+        "content": {
+            "question": "Match the expression with its correct answer:",
+            "pairs": [
+                {
+                    "id": "1",
+                    "leftItem": "5 + 7",
+                    "rightItem": "12"
+                },
+                {
+                    "id": "2",
+                    "leftItem": "10 - 3",
+                    "rightItem": "7"
+                },
+                {
+                    "id": "3",
+                    "leftItem": "4 × 6",
+                    "rightItem": "24"
+                },
+                {
+                    "id": "4",
+                    "leftItem": "20 ÷ 5",
+                    "rightItem": "4"
+                }
+            ]
+        }
+    },
+    {
+        "id": "math_mp_7",
+        "title": "Simple Algebra",
+        "category": "math",
+        "subCategory": "algebra",
+        "type": "matchingPairs",
+        "content": {
+            "question": "Match the equation with its solution:",
+            "pairs": [
+                {
+                    "id": "1",
+                    "leftItem": "x + 3 = 8",
+                    "rightItem": "x = 5"
+                },
+                {
+                    "id": "2",
+                    "leftItem": "2y - 4 = 6",
+                    "rightItem": "y = 5"
+                },
+                {
+                    "id": "3",
+                    "leftItem": "3a = 12",
+                    "rightItem": "a = 4"
+                },
+                {
+                    "id": "4",
+                    "leftItem": "z / 2 = 7",
+                    "rightItem": "z = 14"
+                }
+            ]
+        }
+    },
+    {
+        "id": "math_mp_8",
+        "title": "Fractions",
+        "category": "math",
+        "subCategory": "fractions",
+        "type": "matchingPairs",
+        "content": {
+            "question": "Match the fraction with its decimal equivalent:",
+            "pairs": [
+                {
+                    "id": "1",
+                    "leftItem": "1/2",
+                    "rightItem": "0.5"
+                },
+                {
+                    "id": "2",
+                    "leftItem": "1/4",
+                    "rightItem": "0.25"
+                },
+                {
+                    "id": "3",
+                    "leftItem": "3/4",
+                    "rightItem": "0.75"
+                },
+                {
+                    "id": "4",
+                    "leftItem": "1/5",
+                    "rightItem": "0.2"
+                }
+            ]
+        }
+    },
+    {
+        "id": "math_mp_9",
+        "title": "Time Conversions",
+        "category": "math",
+        "subCategory": "time",
+        "type": "matchingPairs",
+        "content": {
+            "question": "Match the time units:",
+            "pairs": [
+                {
+                    "id": "1",
+                    "leftItem": "1 minute",
+                    "rightItem": "60 seconds"
+                },
+                {
+                    "id": "2",
+                    "leftItem": "1 hour",
+                    "rightItem": "60 minutes"
+                },
+                {
+                    "id": "3",
+                    "leftItem": "1 day",
+                    "rightItem": "24 hours"
+                },
+                {
+                    "id": "4",
+                    "leftItem": "1 week",
+                    "rightItem": "7 days"
+                }
+            ]
+        }
+    },
+    {
+        "id": "math_mp_10",
+        "title": "Geometry Shapes",
+        "category": "math",
+        "subCategory": "geometry",
+        "type": "matchingPairs",
+        "content": {
+            "question": "Match the shape with its name:",
+            "pairs": [
+                {
+                    "id": "1",
+                    "leftItem": "A shape with four equal sides",
+                    "rightItem": "Square"
+                },
+                {
+                    "id": "2",
+                    "leftItem": "A shape with three sides",
+                    "rightItem": "Triangle"
+                },
+                {
+                    "id": "3",
+                    "leftItem": "A shape with no sides and round",
+                    "rightItem": "Circle"
+                },
+                {
+                    "id": "4",
+                    "leftItem": "A shape with four sides, opposite sides equal",
+                    "rightItem": "Rectangle"
+                }
+            ]
+        }
+    }
+]

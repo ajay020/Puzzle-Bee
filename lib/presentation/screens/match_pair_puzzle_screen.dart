@@ -11,6 +11,7 @@ import '../blocs/auth/auth_bloc.dart';
 import '../blocs/auth/auth_state.dart';
 import '../blocs/leaderboard/leaderboard_bloc.dart';
 import '../blocs/leaderboard/leaderboard_event.dart';
+import '../widgets/common/progressbar.dart';
 
 class MatchingPairsPuzzleScreen extends StatefulWidget {
   final List<Puzzle> puzzles;
@@ -30,7 +31,8 @@ class _MatchingPairsPuzzleScreenState extends State<MatchingPairsPuzzleScreen> {
   String? selectedRightItem; // Track selected right item
   Set<String> matchedPairs = {}; // Track matched pairs
   Set<String> unmatchedPairs = {};
-  int timeLeft = 30; // 30-second timer
+  double timeLeft = 30.0; // 30-second timer
+  final double totalTime = 30.0;
   late Timer timer;
   int currentPuzzleIndex = 0;
 
@@ -96,10 +98,10 @@ class _MatchingPairsPuzzleScreenState extends State<MatchingPairsPuzzleScreen> {
   }
 
   void startTimer() {
-    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+    timer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
       setState(() {
         if (timeLeft > 0) {
-          timeLeft--;
+          timeLeft -= .1;
         } else {
           timer.cancel();
           _showTimeUpDialog();
@@ -171,7 +173,7 @@ class _MatchingPairsPuzzleScreenState extends State<MatchingPairsPuzzleScreen> {
 
   void _showCompletionDialog() {
     // Calculate score
-    final score = calculateMatchingPairsScore(pairs.length, timeLeft);
+    final score = calculateMatchingPairsScore(pairs.length, 10);
 
     // Get the current user from AuthBloc
     final user = (context.read<AuthBloc>().state as Authenticated).userData;
@@ -266,27 +268,27 @@ class _MatchingPairsPuzzleScreenState extends State<MatchingPairsPuzzleScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // Timer and Progress Bar
-            Row(
-              children: [
-                Expanded(
-                  child: LinearProgressIndicator(
-                    value: timeLeft / 30,
-                    backgroundColor: Colors.grey[300],
-                    valueColor:
-                        const AlwaysStoppedAnimation<Color>(Colors.blue),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  '$timeLeft sec',
-                  style: const TextStyle(fontSize: 16),
-                ),
-              ],
+            ProgressBar(
+              currentTime: timeLeft,
+              totalTime: totalTime,
+              height: 12.0,
+              backgroundColor: Colors.grey[300]!,
+              progressColor: Colors.blue,
             ),
             const SizedBox(height: 20),
+            // Question text
             Text(
               (widget.puzzles.first.content as MatchPairsContent).question,
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 20),
+            // Puzzle title
+            Text(
+              widget.puzzles[currentPuzzleIndex].title,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.normal,
+              ),
             ),
             const SizedBox(height: 20),
             Expanded(

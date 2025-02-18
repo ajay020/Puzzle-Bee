@@ -1,0 +1,172 @@
+[
+    {
+        "id": "eng_mc_1",
+        "title": "Grammar: Verb Tenses",
+        "category": "english",
+        "subCategory": "grammar",
+        "type": "multipleChoice",
+        "content": {
+            "question": "What is the past tense of 'run'?",
+            "options": [
+                "runned",
+                "ran",
+                "running",
+                "runs"
+            ],
+            "correctOptionIndex": 1
+        }
+    },
+    {
+        "id": "eng_mc_2",
+        "title": "Vocabulary: Word Meaning",
+        "category": "english",
+        "subCategory": "vocabulary",
+        "type": "multipleChoice",
+        "content": {
+            "question": "What does 'benevolent' mean?",
+            "options": [
+                "Kind",
+                "Angry",
+                "Confused",
+                "Lazy"
+            ],
+            "correctOptionIndex": 0
+        }
+    },
+    {
+        "id": "eng_mc_3",
+        "title": "Grammar: Verb Tenses",
+        "category": "english",
+        "subCategory": "grammar",
+        "type": "multipleChoice",
+        "content": {
+            "question": "What is the past tense of 'run'?",
+            "options": [
+                "runned",
+                "ran",
+                "running",
+                "runs"
+            ],
+            "correctOptionIndex": 1
+        }
+    },
+    {
+        "id": "eng_mc_4",
+        "title": "Grammar: Subject-Verb Agreement",
+        "category": "english",
+        "subCategory": "grammar",
+        "type": "multipleChoice",
+        "content": {
+            "question": "Which sentence is grammatically correct?",
+            "options": [
+                "They was playing in the park.",
+                "They were playing in the park.",
+                "They is playing in the park.",
+                "They be playing in the park."
+            ],
+            "correctOptionIndex": 1
+        }
+    },
+    {
+        "id": "eng_mc_5",
+        "title": "Vocabulary: Synonyms",
+        "category": "english",
+        "subCategory": "vocabulary",
+        "type": "multipleChoice",
+        "content": {
+            "question": "Which word is a synonym for 'happy'?",
+            "options": [
+                "sad",
+                "angry",
+                "joyful",
+                "tired"
+            ],
+            "correctOptionIndex": 2
+        }
+    },
+    {
+        "id": "eng_mc_6",
+        "title": "Vocabulary: Antonyms",
+        "category": "english",
+        "subCategory": "vocabulary",
+        "type": "multipleChoice",
+        "content": {
+            "question": "Which word is an antonym for 'big'?",
+            "options": [
+                "large",
+                "huge",
+                "small",
+                "gigantic"
+            ],
+            "correctOptionIndex": 2
+        }
+    },
+    {
+        "id": "eng_mc_7",
+        "title": "Reading Comprehension",
+        "category": "english",
+        "subCategory": "reading",
+        "type": "multipleChoice",
+        "content": {
+            "question": "What is the main idea of the following sentence: 'The cat sat on the mat.'?",
+            "options": [
+                "The cat is black.",
+                "The mat is soft.",
+                "The cat is on the mat.",
+                "The cat is sleeping."
+            ],
+            "correctOptionIndex": 2
+        }
+    },
+    {
+        "id": "eng_mc_8",
+        "title": "Spelling",
+        "category": "english",
+        "subCategory": "spelling",
+        "type": "multipleChoice",
+        "content": {
+            "question": "Which word is spelled correctly?",
+            "options": [
+                "recieve",
+                "receive",
+                "receve",
+                "reiceve"
+            ],
+            "correctOptionIndex": 1
+        }
+    },
+    {
+        "id": "eng_mc_9",
+        "title": "Punctuation",
+        "category": "english",
+        "subCategory": "grammar",
+        "type": "multipleChoice",
+        "content": {
+            "question": "Which sentence uses correct punctuation?",
+            "options": [
+                "The dog barked loudly.",
+                "The dog barked loudly",
+                "The dog, barked loudly.",
+                "The dog barked, loudly"
+            ],
+            "correctOptionIndex": 0
+        }
+    },
+    {
+        "id": "eng_mc_10",
+        "title": "Parts of Speech",
+        "category": "english",
+        "subCategory": "grammar",
+        "type": "multipleChoice",
+        "content": {
+            "question": "Which word is a noun?",
+            "options": [
+                "quickly",
+                "jump",
+                "cat",
+                "running"
+            ],
+            "correctOptionIndex": 2
+        }
+    }
+]

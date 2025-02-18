@@ -22,7 +22,7 @@ void main() async {
   await Firebase.initializeApp();
 
   //upload puzzles to firestore
-  // await uploadPuzzlesToFirestore();
+  await uploadPuzzlesToFirestore();
 
   final puzzleRepository = PuzzleRepositoryImpl();
   final userRepository = UserRepositoryImpl(

@@ -1,9 +1,25 @@
 enum PuzzleCategory { english, math }
 
 // Separate enums for subcategories
-enum EnglishSubCategory { vocabulary, spelling, synonyms, antonyms }
+enum EnglishSubCategory {
+  vocabulary,
+  spelling,
+  synonyms,
+  antonyms,
+  grammar,
+  reading,
+  homophones,
+}
 
-enum MathSubCategory { arithmetic, equations }
+enum MathSubCategory {
+  arithmetic,
+  equations,
+  fractions,
+  algebra,
+  geometry,
+  multiplication,
+  time,
+}
 
 // Convert category enum to string
 String categoryToString(PuzzleCategory category) => category.name;
