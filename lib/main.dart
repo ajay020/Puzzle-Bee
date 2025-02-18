@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:puzzle_bee/app.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:puzzle_bee/core/upload_puzzles.dart';
-import 'package:puzzle_bee/data/repositories/mock_puzzle_repository.dart';
 import 'package:puzzle_bee/data/repositories/puzzle_repository_impl.dart';
 import 'package:puzzle_bee/data/repositories/user_repository_impl.dart';
-import 'package:puzzle_bee/domain/repositories/puzzle_repository.dart';
 import 'package:puzzle_bee/presentation/blocs/auth/auth_bloc.dart';
 import 'package:puzzle_bee/presentation/blocs/auth/auth_event.dart';
 import 'package:puzzle_bee/presentation/blocs/leaderboard/leaderboard_bloc.dart';
@@ -22,7 +20,7 @@ void main() async {
   await Firebase.initializeApp();
 
   //upload puzzles to firestore
-  await uploadPuzzlesToFirestore();
+  // await uploadPuzzlesToFirestore();
 
   final puzzleRepository = PuzzleRepositoryImpl();
   final userRepository = UserRepositoryImpl(

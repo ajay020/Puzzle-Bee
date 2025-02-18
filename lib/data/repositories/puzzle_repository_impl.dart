@@ -45,9 +45,9 @@ class PuzzleRepositoryImpl implements PuzzleRepository {
     // Query Firestore for puzzles matching the category and type
     QuerySnapshot snapshot = await _firestore
         .collection(collectionPath)
-        .where('category',
-            isEqualTo: category.name) // Assuming `category` has a `name` field
-        .where('type', isEqualTo: type.name) // Convert type to string
+        .limit(5)
+        .where('category', isEqualTo: category.name)
+        .where('type', isEqualTo: type.name)
         .get();
 
     // Map the documents to Puzzle objects

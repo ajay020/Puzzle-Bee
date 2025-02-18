@@ -45,8 +45,13 @@ class _HomeScreenState extends State<HomeScreen> {
           SegmentedButton<PuzzleCategory>(
             segments: [
               ButtonSegment(
-                  value: PuzzleCategory.english, label: Text("English")),
-              ButtonSegment(value: PuzzleCategory.math, label: Text("Math")),
+                value: PuzzleCategory.english,
+                label: Text("English"),
+              ),
+              ButtonSegment(
+                value: PuzzleCategory.math,
+                label: Text("Math"),
+              ),
             ],
             selected: {currentPuzzleCategory},
             onSelectionChanged: (newValue) {
@@ -57,10 +62,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
 
           const SizedBox(height: 18),
-
-          // English Puzzles Section
-          Text("${currentPuzzleCategory.name.toUpperCase()} Puzzles"),
-          const SizedBox(height: 12),
 
           Expanded(
             child: ListView.builder(

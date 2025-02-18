@@ -11,9 +11,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: "PuzzleBee",
-        debugShowCheckedModeBanner: false,
-        home: AuthWrapper());
+      title: "PuzzleBee",
+      debugShowCheckedModeBanner: false,
+      home: AuthWrapper(),
+    );
   }
 }
 
