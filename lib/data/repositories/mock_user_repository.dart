@@ -1,6 +1,5 @@
 import 'package:puzzle_bee/data/models/user/user_model.dart';
 
-import '../../domain/entites/user_entity.dart';
 import '../../domain/repositories/user_repository.dart';
 
 class MockUserRepository implements UserRepository {

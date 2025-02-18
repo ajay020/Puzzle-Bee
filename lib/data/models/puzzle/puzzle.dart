@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:puzzle_bee/core/enums/puzzle_category.dart';
 
 import '../../../core/enums/puzzle_type.dart';
@@ -53,9 +52,6 @@ class Puzzle {
       case PuzzleType.matchingPairs:
         content = MatchPairsContent.fromJson(json['content']);
         break;
-      default:
-        debugPrint('Unknown puzzle type: ${json['content']['type']}');
-        throw Exception('Unknown puzzle type');
     }
 
     return Puzzle(

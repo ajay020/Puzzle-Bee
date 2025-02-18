@@ -38,7 +38,7 @@ class PuzzleCacheService {
 
     final puzzlesDocs = await query.get();
     final puzzles = puzzlesDocs.docs
-        .map((doc) => {...doc.data() as Map<String, dynamic>, 'id': doc.id})
+        .map((doc) => {...doc.data(), 'id': doc.id})
         .toList();
 
     // Cache the puzzles
@@ -88,7 +88,7 @@ class PuzzleCacheService {
         .get();
 
     final leaderboard = leaderboardDocs.docs
-        .map((doc) => {...doc.data() as Map<String, dynamic>, 'id': doc.id})
+        .map((doc) => {...doc.data(), 'id': doc.id})
         .toList();
 
     // Cache the leaderboard

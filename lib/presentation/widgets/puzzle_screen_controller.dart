@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:puzzle_bee/presentation/blocs/auth/auth_bloc.dart';
 import 'package:puzzle_bee/presentation/screens/match_pair_puzzle_screen.dart';
 import '../../core/enums/puzzle_category.dart';
 import '../../core/enums/puzzle_type.dart';

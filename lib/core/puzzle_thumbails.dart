@@ -18,15 +18,15 @@ List<PuzzleThumbnail> puzzleThumbnails = [
     icon: Icons.calculate,
   ),
   PuzzleThumbnail(
-    title: "Multiple choice",
-    category: PuzzleCategory.math,
-    type: PuzzleType.multipleChoice,
-    icon: Icons.calculate,
-  ),
-  PuzzleThumbnail(
     title: "Match Pair",
     category: PuzzleCategory.math,
     type: PuzzleType.matchingPairs,
     icon: Icons.bolt_sharp,
+  ),
+  PuzzleThumbnail(
+    title: "Multiple choice",
+    category: PuzzleCategory.math,
+    type: PuzzleType.multipleChoice,
+    icon: Icons.calculate,
   ),
 ];
