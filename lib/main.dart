@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:puzzle_bee/app.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:puzzle_bee/core/upload_puzzles.dart';
+import 'package:puzzle_bee/core/theme/theme_provider.dart';
 import 'package:puzzle_bee/data/repositories/puzzle_repository_impl.dart';
 import 'package:puzzle_bee/data/repositories/user_repository_impl.dart';
 import 'package:puzzle_bee/presentation/blocs/auth/auth_bloc.dart';
@@ -49,7 +50,10 @@ void main() async {
               ..add(LoadLeaderboard()),
           ),
         ],
-        child: const MyApp(),
+        child: ChangeNotifierProvider(
+          create: (context) => ThemeProvider(),
+          child: const MyApp(),
+        ),
       ),
     ),
   );

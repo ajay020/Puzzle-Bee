@@ -316,7 +316,7 @@ class _MatchingPairsPuzzleScreenState extends State<MatchingPairsPuzzleScreen> {
     } else if (selectedLeftItem == item || selectedRightItem == item) {
       return Colors.blue;
     } else {
-      return Colors.grey[300]!;
+      return Theme.of(context).cardColor;
     }
   }
 

@@ -106,11 +106,11 @@ class PuzzleCard extends StatelessWidget {
           width: 120,
           height: 140,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).cardColor,
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.1),
+                color: Colors.black.withAlpha(1),
                 blurRadius: 4,
                 offset: const Offset(0, 2),
               ),

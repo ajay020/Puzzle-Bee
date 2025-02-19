@@ -7,11 +7,19 @@ import '../blocs/auth/auth_bloc.dart';
 import '../blocs/userprofile/profile_bloc.dart';
 import '../blocs/userprofile/profile_event.dart';
 import '../blocs/userprofile/profile_state.dart';
+import 'settings_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   final String userId;
 
   const ProfileScreen({super.key, required this.userId});
+
+  void _navigateToSettingsScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const SettingsScreen()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +38,10 @@ class ProfileScreen extends StatelessWidget {
                 context.read<AuthBloc>().add(SignOutPressed());
               },
             ),
+            IconButton(
+              onPressed: () => _navigateToSettingsScreen(context),
+              icon: Icon(Icons.settings),
+            )
           ],
         ),
         body: BlocBuilder<ProfileBloc, ProfileState>(

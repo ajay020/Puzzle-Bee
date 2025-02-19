@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
+import 'package:puzzle_bee/core/theme/theme.dart';
+import 'package:puzzle_bee/core/theme/theme_provider.dart';
 import 'package:puzzle_bee/presentation/blocs/auth/auth_bloc.dart';
 import 'package:puzzle_bee/presentation/blocs/auth/auth_state.dart';
 import 'package:puzzle_bee/presentation/screens/login_screen.dart';
@@ -10,9 +13,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return MaterialApp(
       title: "PuzzleBee",
       debugShowCheckedModeBanner: false,
+      themeMode: themeProvider.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
       home: AuthWrapper(),
     );
   }
