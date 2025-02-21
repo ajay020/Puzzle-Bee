@@ -1,16 +1,17 @@
 import 'dart:async';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:puzzle_bee/presentation/screens/result_screen.dart';
 
-import '../../core/firestore_fields.dart';
 import '../../data/models/puzzle/multiple_choice_content.dart';
 import '../../data/models/puzzle/puzzle.dart';
+import '../../data/models/user/user_model.dart';
+import '../../domain/repositories/user_repository.dart' show UserRepository;
 import '../blocs/auth/auth_bloc.dart';
 import '../blocs/auth/auth_state.dart';
-import '../blocs/leaderboard/leaderboard_bloc.dart';
-import '../blocs/leaderboard/leaderboard_event.dart';
+import '../blocs/user/user_bloc.dart' show UserBloc;
+import '../blocs/user/user_event.dart';
 import '../widgets/common/progressbar.dart';
 
 class MultipleChoicePuzzleScreen extends StatefulWidget {
@@ -32,6 +33,7 @@ class _MultipleChoicePuzzleScreenState
   Timer? _timer;
   double _timeLeft = 20; // Example: 20 seconds timer
   final double totalTime = 20;
+  List<String> correctPuzzleIds = [];
 
   @override
   void initState() {
@@ -59,7 +61,7 @@ class _MultipleChoicePuzzleScreenState
     });
   }
 
-  void _moveToNextPuzzle() {
+  void _moveToNextPuzzle() async {
     if (currentPuzzleIndex < widget.puzzles.length - 1) {
       setState(() {
         currentPuzzleIndex++;
@@ -73,18 +75,20 @@ class _MultipleChoicePuzzleScreenState
           calculateMultipleChoiceScore(correctAnsers, _timeLeft.toInt());
 
       // Get the current user from AuthBloc
-      final user = (context.read<AuthBloc>().state as Authenticated).userData;
+      final authUser =
+          (context.read<AuthBloc>().state as Authenticated).authUser;
+      final userRepository = context.read<UserRepository>();
+      final user = await userRepository.getUser(authUser.uid);
 
-      final updates = {
-        FirestoreFields.totalScore: FieldValue.increment(score),
-        FirestoreFields.multipleChoiceScore: FieldValue.increment(score),
-      };
+      if (!mounted) return; // ✅ Check if widget is still in the tree
 
-      // Dispatch the UpdateScore event to the LeaderboardBloc
-      context.read<LeaderboardBloc>().add(UpdateScore(
-            userId: user.userId,
-            updates: updates,
-          ));
+      UserModel updatedUser = user!.copyWith(
+        totalScore: user.totalScore + score,
+        multipleChoiceScore: user.multipleChoiceScore + score,
+        solvedPuzzles: [...user.solvedPuzzles, ...correctPuzzleIds],
+      );
+
+      context.read<UserBloc>().add(UpdateUser(updatedUser));
 
       // Navigate to the result screen
       Navigator.pushReplacement(
@@ -112,6 +116,7 @@ class _MultipleChoicePuzzleScreenState
         final content = widget.puzzles[i].content as MultipleChoiceContent;
         if (selectedAnswers[i] == content.correctOptionIndex) {
           correctAnswers++;
+          correctPuzzleIds.add(widget.puzzles[i].id);
         }
       }
     }

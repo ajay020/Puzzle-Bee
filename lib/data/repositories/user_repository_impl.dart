@@ -2,11 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../domain/repositories/user_repository.dart';
 import '../models/user/user_model.dart';
+import '../services/user_cache_service.dart' show UserCacheService;
 
 class UserRepositoryImpl implements UserRepository {
   final FirebaseFirestore firestore;
+  final UserCacheService cacheService;
 
-  UserRepositoryImpl({required this.firestore});
+  UserRepositoryImpl({required this.firestore, required this.cacheService});
 
   @override
   Future<List<UserModel>> getLeaderboard() async {
@@ -37,17 +39,41 @@ class UserRepositoryImpl implements UserRepository {
     }
   }
 
-  // Fetch the current user's profile data
+  /// Retrieves a user from Hive first, if not found, fetches from Firestore
   @override
-  Future<UserModel?> fetchUserProfile(String userId) async {
-    try {
-      final userDoc = await firestore.collection('users').doc(userId).get();
-      if (!userDoc.exists) return null;
+  Future<UserModel?> getUser(String userId) async {
+    UserModel? user = await cacheService.getUser(userId);
 
-      return UserModel.fromJson(userDoc.data()!);
-    } catch (e) {
-      print('Error fetching user profile: $e');
-      return null;
+    if (user == null) {
+      // Fetch from Firestore
+      final doc = await firestore.collection('users').doc(userId).get();
+      if (doc.exists) {
+        user = UserModel.fromJson(doc.data()!);
+        await cacheService.saveUser(user); // Save locally
+      }
     }
+    return user;
+  }
+
+  /// Saves a user both locally and to Firestore
+  @override
+  Future<void> saveUser(UserModel user) async {
+    await cacheService.saveUser(user);
+    await firestore
+        .collection('users')
+        .doc(user.userId)
+        .set(user.toJson(), SetOptions(merge: true));
+  }
+
+  /// Updates a user's solved puzzles and scores in both Hive & Firestore
+  @override
+  Future<void> updateUser(UserModel updatedUser) async {
+    // Save to cache
+    await cacheService.updateUser(updatedUser);
+    // Save to firestore
+    await firestore.collection('users').doc(updatedUser.userId).set(
+          updatedUser.toJson(),
+          SetOptions(merge: true),
+        );
   }
 }

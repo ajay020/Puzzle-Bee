@@ -5,6 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:puzzle_bee/data/models/puzzle/match_pairs_content.dart';
 import 'package:puzzle_bee/data/models/puzzle/pair_item.dart';
+import 'package:puzzle_bee/data/models/user/user_model.dart';
+import 'package:puzzle_bee/data/repositories/auth_repository.dart';
+import 'package:puzzle_bee/domain/repositories/user_repository.dart';
+import 'package:puzzle_bee/presentation/blocs/user/user_bloc.dart';
+import 'package:puzzle_bee/presentation/blocs/user/user_event.dart';
 import '../../core/firestore_fields.dart';
 import '../../data/models/puzzle/puzzle.dart';
 import '../blocs/auth/auth_bloc.dart';
@@ -171,23 +176,26 @@ class _MatchingPairsPuzzleScreenState extends State<MatchingPairsPuzzleScreen> {
     }
   }
 
-  void _showCompletionDialog() {
+  void _showCompletionDialog() async {
     // Calculate score
     final score = calculateMatchingPairsScore(pairs.length, 10);
 
-    // Get the current user from AuthBloc
-    final user = (context.read<AuthBloc>().state as Authenticated).userData;
+    // Get the current
+    final state = context.read<AuthBloc>().state as Authenticated;
+    final userRepository = context.read<UserRepository>();
+    final puzzle = widget.puzzles[currentPuzzleIndex];
 
-    // Prepare the updates
-    final updates = {
-      FirestoreFields.totalScore: FieldValue.increment(score),
-      FirestoreFields.matchingPairsScore: FieldValue.increment(score),
-    };
+    final user = await userRepository.getUser(state.authUser.uid);
 
-    // Dispatch the UpdateScore event to the LeaderboardBloc
-    context
-        .read<LeaderboardBloc>()
-        .add(UpdateScore(userId: user.userId, updates: updates));
+    if (!mounted) return; // ✅ Check if widget is still in the tree
+
+    UserModel updatedUser = user!.copyWith(
+      totalScore: user.totalScore + 10,
+      matchingPairsScore: user.matchingPairsScore + 10,
+      solvedPuzzles: [...user.solvedPuzzles, puzzle.id],
+    );
+
+    context.read<UserBloc>().add(UpdateUser(updatedUser));
 
     showDialog(
       context: context,

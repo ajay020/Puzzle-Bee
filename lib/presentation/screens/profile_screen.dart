@@ -4,9 +4,9 @@ import 'package:puzzle_bee/presentation/blocs/auth/auth_event.dart';
 
 import '../../domain/repositories/user_repository.dart';
 import '../blocs/auth/auth_bloc.dart';
-import '../blocs/userprofile/profile_bloc.dart';
-import '../blocs/userprofile/profile_event.dart';
-import '../blocs/userprofile/profile_state.dart';
+import '../blocs/user/user_bloc.dart';
+import '../blocs/user/user_event.dart';
+import '../blocs/user/user_state.dart';
 import 'settings_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -25,8 +25,8 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) {
-        return ProfileBloc(userRepository: context.read<UserRepository>())
-          ..add(FetchProfile(userId));
+        return UserBloc(userRepository: context.read<UserRepository>())
+          ..add(FetchUser(userId));
       },
       child: Scaffold(
         appBar: AppBar(
@@ -44,7 +44,7 @@ class ProfileScreen extends StatelessWidget {
             )
           ],
         ),
-        body: BlocBuilder<ProfileBloc, ProfileState>(
+        body: BlocBuilder<UserBloc, ProfileState>(
           builder: (context, state) {
             if (state is ProfileLoading) {
               return Center(child: CircularProgressIndicator());

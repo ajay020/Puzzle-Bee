@@ -113,4 +113,22 @@ class MockUserRepository implements UserRepository {
     // TODO: implement updateUserScore
     throw UnimplementedError();
   }
+  
+  @override
+  Future<UserModel?> getUser(String userId) {
+    // TODO: implement getUser
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<void> saveUser(UserModel user) {
+    // TODO: implement saveUser
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<void> updateUser(UserModel user) {
+    // TODO: implement updateUser
+    throw UnimplementedError();
+  }
 }

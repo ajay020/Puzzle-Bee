@@ -5,7 +5,7 @@ class AppTheme {
     brightness: Brightness.light,
     primaryColor: Colors.blue, // Main color for the app
     scaffoldBackgroundColor: Colors.white, // Background color
-    cardColor: Colors.white,
+    cardColor: Colors.grey[200],
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.blue,
       titleTextStyle: TextStyle(color: Colors.white, fontSize: 20),

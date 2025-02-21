@@ -3,4 +3,5 @@ class FirestoreFields {
   static const String matchingPairsScore = 'matchingPairsScore';
   static const String multipleChoiceScore = 'multipleChoiceScore';
   static const String wordScrambleScore = 'wordScrambleScore';
+  static const String solvedPuzzles = 'solvedPuzzles';
 }

@@ -1,12 +1,20 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:puzzle_bee/data/models/user/user_model.dart';
+import 'package:puzzle_bee/data/repositories/user_repository_impl.dart';
+import 'package:puzzle_bee/data/services/user_cache_service.dart';
+import 'package:puzzle_bee/domain/repositories/user_repository.dart';
 
 import '../models/user/user_auth_model.dart';
 
 class AuthRepository {
   final FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
+  final UserRepository _userRepository = UserRepositoryImpl(
+    firestore: FirebaseFirestore.instance,
+    cacheService: UserCacheService(),
+  );
 
   AuthRepository({
     FirebaseAuth? firebaseAuth,
@@ -52,21 +60,25 @@ class AuthRepository {
     }
   }
 
-  Future<void> _createOrUpdateUserDocument(User user) async {
+  Future<void> _createOrUpdateUserDocument(User firebaseUser) async {
     final userDoc =
-        FirebaseFirestore.instance.collection('users').doc(user.uid);
+        FirebaseFirestore.instance.collection('users').doc(firebaseUser.uid);
 
-    final userData = {
-      'userId': user.uid,
-      'username': user.displayName ?? 'User',
-      'photoURL': user.photoURL,
-      // Initialize scores if they don't exist
-      'totalScore': FieldValue.increment(0),
-      'multipleChoiceScore': FieldValue.increment(0),
-      'matchingPairsScore': FieldValue.increment(0),
-    };
+    final doc = await userDoc.get();
 
-    await userDoc.set(userData, SetOptions(merge: true));
+    final UserModel user;
+
+    if (doc.exists) {
+      user = UserModel.fromJson(doc.data()!);
+      _userRepository.saveUser(user);
+    } else {
+      user = UserModel(
+        userId: firebaseUser.uid,
+        username: firebaseUser.displayName ?? "User",
+        photoURL: firebaseUser.photoURL ?? "",
+      );
+      _userRepository.saveUser(user);
+    }
   }
 
   Future<void> signOut() async {

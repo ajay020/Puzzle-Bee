@@ -1,6 +1,16 @@
+import 'package:hive/hive.dart';
+
+part 'pair_item.g.dart';
+
+@HiveType(typeId: 4)
 class PairItem {
+  @HiveField(0)
   final String id;
+
+  @HiveField(1)
   final String leftItem;
+
+  @HiveField(2)
   final String rightItem;
 
   PairItem({
@@ -10,10 +20,10 @@ class PairItem {
   });
 
   Map<String, dynamic> toJson() => {
-    'id': id,
-    'leftItem': leftItem,
-    'rightItem': rightItem,
-  };
+        'id': id,
+        'leftItem': leftItem,
+        'rightItem': rightItem,
+      };
 
   factory PairItem.fromJson(Map<String, dynamic> json) {
     return PairItem(

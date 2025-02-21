@@ -1,3 +1,4 @@
+import 'package:hive/hive.dart';
 import 'package:puzzle_bee/core/enums/puzzle_category.dart';
 
 import '../../../core/enums/puzzle_type.dart';
@@ -7,12 +8,26 @@ import 'multiple_choice_content.dart';
 import 'puzzle_content.dart';
 import 'true_false_content.dart';
 
+part 'puzzle.g.dart';
+
+@HiveType(typeId: 5)
 class Puzzle {
+  @HiveField(0)
   final String id;
+
+  @HiveField(1)
   final String title;
+
+  @HiveField(2)
   final PuzzleCategory category;
-  final dynamic subCategory; // Can be EnglishSubCategory or MathSubCategory
+
+  @HiveField(3)
+  final dynamic subCategory; // Store as String
+
+  @HiveField(4)
   final PuzzleType type;
+
+  @HiveField(5)
   final PuzzleContent content;
 
   Puzzle({

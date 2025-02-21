@@ -31,7 +31,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoading());
     final user = authRepository.currentUser;
     if (user != null) {
-      final userData = await userRepository.fetchUserProfile(user.uid);
+      final userData = await userRepository.getUser(user.uid);
       emit(Authenticated(user, userData!));
     } else {
       emit(Unauthenticated());

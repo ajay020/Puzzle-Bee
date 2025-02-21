@@ -29,37 +29,15 @@ class MockPuzzleRepository implements PuzzleRepository {
   }
 
   @override
-  Future<void> submitAnswer(String puzzleId, answer) {
-    // TODO: implement submitAnswer
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> addPuzzle(Puzzle puzzle) {
-    // TODO: implement addPuzzle
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> deletePuzzle(String puzzleId) {
-    // TODO: implement deletePuzzle
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> updatePuzzle(Puzzle puzzle) {
-    // TODO: implement updatePuzzle
-    throw UnimplementedError();
-  }
-
-  @override
   Future<List<Puzzle>> getPuzzlesByCategoryAndType({
     required PuzzleCategory category,
     required PuzzleType type,
   }) async {
     await Future.delayed(const Duration(milliseconds: 300));
     return _puzzles
-        .where((puzzle) => puzzle.category.name == category.name && puzzle.type.name == type.name)
+        .where((puzzle) =>
+            puzzle.category.name == category.name &&
+            puzzle.type.name == type.name)
         .toList();
   }
 }

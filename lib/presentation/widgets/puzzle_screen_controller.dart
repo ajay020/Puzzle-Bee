@@ -25,12 +25,10 @@ class PuzzleScreen extends StatefulWidget {
 }
 
 class _PuzzleScreenState extends State<PuzzleScreen> {
-
   @override
   void initState() {
     super.initState();
   }
-
 
   @override
   void didChangeDependencies() {
@@ -51,7 +49,13 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
         if (state is PuzzleInitial || state is PuzzleLoading) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is PuzzleError) {
-          return Center(child: Text(state.message));
+          return Scaffold(
+            body: Center(
+                child: Text(
+              state.message,
+              style: Theme.of(context).textTheme.displayMedium,
+            )),
+          );
         } else if (state is PuzzleLoaded) {
           return _buildPuzzleScreenByType(state.puzzles);
         } else {

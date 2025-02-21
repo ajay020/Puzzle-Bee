@@ -8,8 +8,4 @@ abstract class PuzzleRepository {
     required PuzzleCategory category,
     required PuzzleType type,
   });
-  Future<void> addPuzzle(Puzzle puzzle);
-  Future<List<Puzzle>> getPuzzles();
-  Future<void> updatePuzzle(Puzzle puzzle);
-  Future<void> deletePuzzle(String puzzleId);
 }
